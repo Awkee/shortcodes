@@ -1,0 +1,13 @@
+{{- $Img := (.Get "url") }}
+<!-- {{- $height := (.Get "height") }} -->
+{{- $alt := (.Get "alt") }}
+{{- $position := (.Get "position") }}
+
+{{- $directions := slice "bottom-left" "bottom-right" "top-left" "top-right" "bottom" "top" "left" "right" }}
+{{ if not (in $directions $position) }} $position := "bottom" {{ end}}
+<!-- {{ if or ( not $height ) (lt $height "0") (gt $height "100") }} $height := "100" {{ end}} -->
+
+<div class="img-text-container">
+    <img class="img-text" src="{{$Img}}" alt="{{$alt}}">
+    <div class={{ $position }} > {{ .Inner }} </div>
+</div>
