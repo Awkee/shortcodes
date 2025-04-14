@@ -3,13 +3,13 @@
 {{- $branch := default "main" site.Params.emgithub.branch }}
 {{- $file := "" }}
 {{- $style := default "default" site.Params.emgithub.style }}
-{{- $type := default "markdown" site.Params.emgithub.type }}
+{{- $type := default "code" site.Params.emgithub.type }}
 {{- $border := default true site.Params.emgithub.border }}
 {{- $lineNumbers := default true site.Params.emgithub.line_numbers }}
 {{- $fullPath := default true site.Params.emgithub.full_path }}
 {{- $copyButton := default true site.Params.emgithub.copy_button }}
 {{- $fileMeta := default true site.Params.emgithub.file_meta }}
-{{- $jsDelivr := default false site.Params.emgithub.js_delivr }}
+{{- $jsDelivr := default true site.Params.emgithub.js_delivr }}
 {{- if .IsNamedParams }}
   {{- $owner = .Get "owner" }}
   {{- $repo = .Get "repo" }}
@@ -45,5 +45,6 @@
 {{- if $jsDelivr }}
   {{- $params = $params | append "fetchFromJsDelivr" "on" }}
 {{- end }}
-{{- $endpoint := default "https://emgithub.com/embed-v2.js" site.Params.emgithub.endpoint }}
-<script src="{{ printf `%s?%s` $endpoint ($params | querify) }}"></script>
+
+<iframe frameborder="0" scrolling="no" style="width:100%; height:877px;" allow="clipboard-write"
+  src="{{ printf "https://emgithub.com/iframe.html?%s" ($params | querify) }}"></iframe>

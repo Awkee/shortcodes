@@ -2,12 +2,18 @@
 {{/* Parameters  : */}}
 {{/* - id (#0)   : the video ID, such as BVXXXXXXXXXX. */}}
 {{/* - fullscreen: allow fullscreen, default to true. */}}
+{{/* - height: height, default to 480 if not specified. */}}
 {{- $id := "" }}
 {{- $fullscreen := true }}
+{{- $height := 480 }}
+
 {{- if .IsNamedParams }}
   {{- $id = .Get "id" }}
   {{- if isset .Params "fullscreen" }}
     {{ $fullscreen = .Get "fullscreen" }}
+  {{ end }}
+  {{- if isset .Params "height" }}
+  {{ $height = .Get "height" }}
   {{ end }}
 {{- else }}
   {{- $id = .Get 0 }}
@@ -17,6 +23,8 @@
   src="https://player.bilibili.com/player.html?bvid={{ $id }}"
   scrolling="no"
   border="0"
+  width="100%"
+  height="{{ $height }}"
   frameborder="no"
   framespacing="0"
   {{ if $fullscreen }}allowfullscreen{{ end }}>
